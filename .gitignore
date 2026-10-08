@@ -1,0 +1,14 @@
+build/
+__pycache__/
+*.pyc
+# made on each Pi for its own location (radar/make_map.py)
+radar/map.txt
+radar/map.log
+radar/gshhs/
+radar/ourairports/
+radar/geonames/
+# runtime state
+radar/range.txt
+radar/demo-range.txt
+radar/demo.conf
+radar/recording/
