@@ -16,7 +16,7 @@ straight to the framebuffer: no desktop.
 
 ```
 sudo apt install git cmake build-essential libcurl4-openssl-dev libcjson-dev
-git clone --recurse-submodules https://github.com/<you>/lvgl-radar.git
+git clone --recurse-submodules https://github.com/va7sdf/lvgl-radar.git
 cd lvgl-radar/radar
 cmake -B build && cmake --build build -j4
 vi radar.conf                         # your position and receiver

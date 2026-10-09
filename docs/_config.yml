@@ -1,0 +1,31 @@
+title: A radar for your own sky
+description: LVGL on a Raspberry Pi framebuffer, from a touch demo to a live ADS-B radar display
+markdown: kramdown
+kramdown:
+  input: GFM
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+chapters:
+  - index.md
+  - 01-framebuffer.md
+  - 02-hardware.md
+  - 03-touch-demo.md
+  - 04-radar-setup.md
+  - 05-how-it-works.md
+  - 06-map.md
+  - 07-screens.md
+  - 08-fonts.md
+  - 09-data-sources.md
+  - 10-settings.md
+  - 11-running.md
+  - 12-credits.md
+exclude:
+  - build.py
+  - "*.pdf"

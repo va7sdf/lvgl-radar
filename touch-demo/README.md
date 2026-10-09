@@ -7,7 +7,7 @@ and Y coordinates and a trail as you drag.
 
 ```
 sudo apt install git cmake build-essential
-git clone --recurse-submodules https://github.com/<you>/lvgl-radar.git
+git clone --recurse-submodules https://github.com/va7sdf/lvgl-radar.git
 cd lvgl-radar/touch-demo
 cmake -B build && cmake --build build -j4
 sudo ./build/touch-demo

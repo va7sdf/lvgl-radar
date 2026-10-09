@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} · {{ site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+<main>
+  <p class="site-top"><a href="{{ '/' | relative_url }}">{{ site.title }}</a>
+     · <a href="https://github.com/va7sdf/lvgl-radar">code on GitHub</a></p>
+  {{ content }}
+  {% assign list = site.chapters %}
+  {% for f in list %}{% if f == page.path %}{% assign i = forloop.index0 %}{% endif %}{% endfor %}
+  <nav class="site-nav" aria-label="Chapters">
+    {% if i and i > 0 %}{% assign p = list[i | minus: 1] | replace: '.md', '.html' %}
+      <a href="{{ p | relative_url }}">← Previous</a>{% else %}<span></span>{% endif %}
+    <a href="{{ '/' | relative_url }}">Contents</a>
+    {% assign n = i | plus: 1 %}{% if i and list[n] %}{% assign q = list[n] | replace: '.md', '.html' %}
+      <a href="{{ q | relative_url }}">Next →</a>{% else %}<span></span>{% endif %}
+  </nav>
+</main>
+</body>
+</html>
