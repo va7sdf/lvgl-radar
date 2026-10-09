@@ -104,19 +104,34 @@ static void throttling(pistats_t *s)
 
 static void network(pistats_t *s)
 {
+    /* The first IPv4 address; on an IPv6-only network, the first global
+       IPv6 one (link-local fe80:: addresses aren't much use to anyone). */
     struct ifaddrs *ifs;
+    char v6[sizeof s->ip] = "";
     s->ip[0] = '\0';
     if (getifaddrs(&ifs) == 0) {
         for (struct ifaddrs *i = ifs; i; i = i->ifa_next) {
-            if (!i->ifa_addr || i->ifa_addr->sa_family != AF_INET || (i->ifa_flags & IFF_LOOPBACK))
+            if (!i->ifa_addr || (i->ifa_flags & IFF_LOOPBACK))
                 continue;
-            char addr[INET_ADDRSTRLEN];
-            inet_ntop(AF_INET, &((struct sockaddr_in *)i->ifa_addr)->sin_addr, addr, sizeof addr);
-            snprintf(s->ip, sizeof s->ip, "%s %s", i->ifa_name, addr);
-            break;
+            if (i->ifa_addr->sa_family == AF_INET) {
+                char addr[INET_ADDRSTRLEN];
+                inet_ntop(AF_INET, &((struct sockaddr_in *)i->ifa_addr)->sin_addr, addr, sizeof addr);
+                snprintf(s->ip, sizeof s->ip, "%s %s", i->ifa_name, addr);
+                break;
+            }
+            if (i->ifa_addr->sa_family == AF_INET6 && !v6[0]) {
+                const struct in6_addr *a6 = &((struct sockaddr_in6 *)i->ifa_addr)->sin6_addr;
+                if (IN6_IS_ADDR_LINKLOCAL(a6))
+                    continue;
+                char addr[INET6_ADDRSTRLEN];
+                inet_ntop(AF_INET6, a6, addr, sizeof addr);
+                snprintf(v6, sizeof v6, "%s %s", i->ifa_name, addr);
+            }
         }
         freeifaddrs(ifs);
     }
+    if (!s->ip[0])
+        snprintf(s->ip, sizeof s->ip, "%s", v6);
 
     /* Wi-Fi signal: /proc/net/wireless "wlan0: 0000   54.  -56.  -256 ..." */
     s->wifi_dbm = 0;

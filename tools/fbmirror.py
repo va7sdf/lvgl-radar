@@ -147,6 +147,15 @@ def handler(g):
     return H
 
 
+class DualStackServer(ThreadingHTTPServer):
+    """Listens on IPv6 and, through IPv4-mapped addresses, on IPv4 too."""
+    address_family = socket.AF_INET6
+
+    def server_bind(self):
+        self.socket.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 0)
+        super().server_bind()
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -159,7 +168,10 @@ def main():
 
     g = Grabber(a)
     threading.Thread(target=g.run, daemon=True).start()
-    srv = ThreadingHTTPServer(("0.0.0.0", a.port), handler(g))
+    try:                            # IPv6 and IPv4 both, where the Pi has IPv6
+        srv = DualStackServer(("::", a.port), handler(g))
+    except OSError:
+        srv = ThreadingHTTPServer(("0.0.0.0", a.port), handler(g))
     srv.daemon_threads = True
     print("fbmirror: %s %dx%d %d-bit on http://%s:%d/" %
           (a.fb, g.w, g.h, g.bpp, socket.gethostname(), a.port), flush=True)

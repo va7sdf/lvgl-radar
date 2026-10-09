@@ -13,7 +13,7 @@ typedef struct {
     long   uptime_s;
     bool   throttle_known;
     unsigned throttled;     /* get_throttled bits */
-    char   ip[48];          /* e.g. "wlan0 192.168.0.40" */
+    char   ip[64];          /* e.g. "wlan0 192.168.0.40", or an IPv6 address */
     int    wifi_dbm;        /* 0 if unknown */
     char   ssid[64];        /* Wi-Fi network name, empty if unknown */
     char   host[64];
