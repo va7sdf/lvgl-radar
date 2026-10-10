@@ -9,9 +9,6 @@ radar/ourairports/
 radar/geonames/
 # runtime state
 radar/range.txt
-radar/demo-range.txt
-radar/demo.conf
-radar/recording/
 # docs/build.py output
 docs/out/
 docs/_site/

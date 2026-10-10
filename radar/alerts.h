@@ -15,7 +15,7 @@
 void alerts_init(const radar_config_t *cfg);
 
 /* Look for a new alert among aircraft within range. Returns true and fills
-   hex if one should be shown now (and beeps the buzzer, if fitted). */
+   hex if one should be shown now. */
 bool alerts_check(const feed_snapshot_t *merged, char hex[8]);
 
 /* Why this aircraft is interesting, or NULL. */

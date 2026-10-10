@@ -55,7 +55,6 @@ typedef struct {
     bool   alert_emergency;
     bool   alert_military;
     char   watch[512];          /* watch list: hex, registration, callsign, type; * = prefix */
-    int    buzzer_gpio;         /* -1 = no buzzer */
     char   metar_station[8];    /* e.g. CYYJ; empty = no METAR */
     char   fb_dev[64];
     char   touch_dev[256];

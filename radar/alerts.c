@@ -1,16 +1,14 @@
-/* Emergency, military and watch-list alerts, with an optional buzzer. */
+/* Emergency, military and watch-list alerts. */
 
 #include "alerts.h"
 
 #include <ctype.h>
 #include <math.h>
-#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
 #include <time.h>
-#include <unistd.h>
 
 #define ALERT_REPEAT_S 1800
 #define MAX_RECENT     64
@@ -72,34 +70,6 @@ const char *alerts_reason(const aircraft_t *a)
     return NULL;
 }
 
-/* ---------- buzzer ---------- */
-
-static void *beep_thread(void *arg)
-{
-    int beeps = (int)(intptr_t)arg;
-    char on[64], off[64];
-    snprintf(on, sizeof on, "pinctrl set %d op dh", cfg->buzzer_gpio);
-    snprintf(off, sizeof off, "pinctrl set %d op dl", cfg->buzzer_gpio);
-    for (int i = 0; i < beeps; i++) {
-        if (system(on) != 0)
-            break;
-        usleep(150000);
-        if (system(off) != 0)
-            break;
-        usleep(150000);
-    }
-    return NULL;
-}
-
-static void beep(int times)
-{
-    if (cfg->buzzer_gpio < 0)
-        return;
-    pthread_t tid;
-    if (pthread_create(&tid, NULL, beep_thread, (void *)(intptr_t)times) == 0)
-        pthread_detach(tid);
-}
-
 /* ---------- checking ---------- */
 
 static bool recently(const char *hex, time_t now)
@@ -128,7 +98,6 @@ bool alerts_check(const feed_snapshot_t *merged, char hex[8])
         next_recent = (next_recent + 1) % MAX_RECENT;
         snprintf(hex, 8, "%s", a->hex);
         printf("alert: %s %s (%s)\n", a->flight[0] ? a->flight : a->hex, a->reg, why);
-        beep(why[0] == '7' ? 3 : 1);           /* emergencies get three beeps */
         return true;
     }
     return false;
@@ -142,10 +111,4 @@ void alerts_init(const radar_config_t *config)
     snprintf(list, sizeof list, "%s", cfg->watch);
     for (char *tok = strtok(list, ", \t"); tok && n_watch < MAX_WATCH; tok = strtok(NULL, ", \t"))
         snprintf(watch[n_watch++], sizeof watch[0], "%s", tok);
-    if (cfg->buzzer_gpio >= 0) {
-        char cmd[64];
-        snprintf(cmd, sizeof cmd, "pinctrl set %d op dl", cfg->buzzer_gpio);
-        if (system(cmd) != 0)
-            fprintf(stderr, "alerts: could not set up GPIO %d with pinctrl\n", cfg->buzzer_gpio);
-    }
 }

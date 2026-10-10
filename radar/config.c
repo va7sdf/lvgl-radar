@@ -159,7 +159,6 @@ int config_load(const char *path, radar_config_t *cfg)
     copy_str(cfg->range_file, sizeof cfg->range_file, "range.txt");
     cfg->alert_emergency = true;
     cfg->alert_military = true;
-    cfg->buzzer_gpio = -1;
     cfg->idle_after_s = 180;
     cfg->weather_view_s = 30;
     copy_str(cfg->fb_dev, sizeof cfg->fb_dev, "/dev/fb0");
@@ -264,7 +263,6 @@ int config_load(const char *path, radar_config_t *cfg)
         else if (strcmp(key, "alert_emergency") == 0)  cfg->alert_emergency = yes(val);
         else if (strcmp(key, "alert_military") == 0)   cfg->alert_military = yes(val);
         else if (strcmp(key, "watch") == 0)            copy_str(cfg->watch, sizeof cfg->watch, val);
-        else if (strcmp(key, "buzzer_gpio") == 0)      cfg->buzzer_gpio = val[0] ? atoi(val) : -1;
         else if (strcmp(key, "metar_url") == 0)        copy_str(cfg->metar_url, sizeof cfg->metar_url, val);
         else if (strcmp(key, "metar_station") == 0)    copy_str(cfg->metar_station, sizeof cfg->metar_station, val);
         else if (strcmp(key, "idle_after_s") == 0)     cfg->idle_after_s = atoi(val);

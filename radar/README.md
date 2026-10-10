@@ -10,7 +10,6 @@ straight to the framebuffer: no desktop.
 - An outline map (shorelines, rivers, airports, navaids) made for your location
 - Tap an aircraft for its details, a map point for airport info and METAR
 - Swipe for the clock and weather, receiver stats, an aircraft list and settings
-- Demo mode: record your own sky, replay it anywhere with no network
 
 ## Quick start
 
@@ -25,5 +24,4 @@ sudo ./build/radar radar.conf         # try it; Ctrl-C to stop
 ./install-service.sh                  # then run it at every boot
 ```
 
-Settings are explained in [radar.conf](radar.conf). Record and replay for
-demos: [demo/demo.py](demo/demo.py) and `demo/demo-mode on|off`.
+Settings are explained in [radar.conf](radar.conf).

@@ -78,7 +78,7 @@ static lv_obj_t *w_icon;                /* beside the temperature */
 static lv_obj_t *fc_icon[FC_ROWS], *fc_day[FC_ROWS], *fc_temp[FC_ROWS], *fc_cond[FC_ROWS];
 
 static const char *field_names[N_FIELDS] = {
-    "Altitude", "Vertical", "Speed", "Track", "From you",
+    "Altitude", "Vertical", "Ground speed", "Track", "From you",
     "Squawk", "Selected", "Category", "Hex", "Signal"
 };
 

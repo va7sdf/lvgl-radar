@@ -37,8 +37,8 @@ WorkingDirectory=$DIR
 ExecStart=$DIR/build/radar radar.conf
 Restart=always
 RestartSec=5
-# Screen, touch, console and buzzer access without running as root
-SupplementaryGroups=video input tty gpio
+# Screen, touch and console access without running as root
+SupplementaryGroups=video input tty
 AmbientCapabilities=CAP_SYS_TTY_CONFIG
 
 [Install]
