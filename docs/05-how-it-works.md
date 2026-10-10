@@ -53,14 +53,17 @@ static void refresh_cb(lv_timer_t *t)
 ```
 
 In Python terms: worker threads put results in a `queue`, and the GUI
-thread takes them out. Weather, METARs, receiver stats and aircraft
-lookups work the same way, each in its own thread.
+thread takes them out. Weather, METARs (Meteorological Aerodrome Reports,
+the standard airport weather reports), receiver stats and aircraft lookups
+work the same way, each in its own thread.
 
 ## Merging two sources
 
 My receiver and adsb.fi often see the same aircraft. They're matched by
 their **ICAO address**, a 24-bit number unique to each airframe, shown as
-six hex digits like `C0184B`. The first source in `radar.conf` wins (put
+six hex digits like `C0184B`. (ICAO, the International Civil Aviation
+Organization, is the United Nations agency that sets the world's aviation
+standards, from these addresses to airport codes like CYYJ.) The first source in `radar.conf` wins (put
 your own first), and it borrows details only adsb.fi has, such as
 registration, type, owner and the military flag. Each aircraft is drawn in
 its source's colour, so you can see what your own antenna is hearing.
@@ -119,12 +122,21 @@ blip moves only when the sweep crosses its bearing:
 3. If the aircraft has gone from the data when the sweep comes round,
    remove it and its track.
 
+It's close to a real radar, not exact. Each aircraft reports its position
+about twice a second; the receiver publishes it once a second, adsb.fi is
+asked every few seconds, and the screen catches up every half second. So
+a blip shows where the aircraft was a second or few ago, not at the
+instant the sweep passes. At these ranges that's a few hundred metres at
+most for an airliner: close enough to watch the traffic, not for keeping
+aircraft apart.
+
 ## Tracks
 
 Each aircraft keeps a history of where it's been (two minutes by default)
 and draws it as a line that fades with age. Tracks are drawn into the
 canvas under the sweep, so the sweep glides over them. When an aircraft
-leaves the scope or vanishes, its track goes with it.
+leaves the scope, drops out of range of the receivers, or turns off its
+transponder, its track goes with it.
 
 ## Colours that mean something
 

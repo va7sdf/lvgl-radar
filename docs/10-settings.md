@@ -30,13 +30,12 @@ The main groups:
 | `font_file`, `temp_font_file`, `icon_font_file` | Fonts (chapter 8) |
 | `clock_main`, `clock_24h`, `unit_*` | Clock and units |
 | `metar_station` | The airport whose METAR is on the weather screen |
-| `alert_emergency`, `alert_military`, `watch`, `buzzer_gpio` | Alerts |
+| `alert_emergency`, `alert_military`, `watch` | Alerts |
 | `[source]` sections | Where aircraft come from, how often, and in what colour |
 | `fb_dev`, `touch_dev` | The screen and touch devices |
 
 The web addresses for weather, METARs, lookups and receiver stats can be
-changed too (`weather_url`, `metar_url`, `lookup_url`, `stats_url`). Demo
-mode uses that to point everything at a local replay (chapter 11).
+changed too (`weather_url`, `metar_url`, `lookup_url`, `stats_url`).
 
 ## Clock and units
 
@@ -46,7 +45,7 @@ mode uses that to point everything at a local replay (chapter 11).
 
 | | Choices (default first) |
 |---|---|
-| Big clock | UTC, local |
+| Big clock | Zulu (UTC), local |
 | Hours | 24 h, 12 h |
 | Temperature | °C, °F |
 | Speed | knots, km/h, mph |
@@ -54,7 +53,7 @@ mode uses that to point everything at a local replay (chapter 11).
 | Distance | nautical miles, km, statute miles |
 | Pressure | hPa, kPa, inHg |
 
-The defaults are aviation's (and Canada's): UTC, 24-hour, Celsius, knots,
+The defaults are aviation's (and Canada's): Zulu (UTC), 24-hour, Celsius, knots,
 feet, nautical miles and hectopascals. Altitudes from 18,000 ft up are
 shown as flight levels (FL350) as pilots say them. The range rings always
 stay in nautical miles.
@@ -76,16 +75,3 @@ Entries can be a registration, a callsign, an ICAO type or an ICAO
 address, in any case, with or without dashes. A `*` at the end matches the
 start, so `RCH*` catches every US Air Force "Reach" flight. Each aircraft
 alerts at most once every half hour.
-
-### A buzzer
-
-An *active* buzzer (one with its own oscillator, so it beeps when given
-power) between a GPIO pin and ground beeps once for an alert, three times
-for an emergency. Set the pin's BCM number:
-
-```ini
-buzzer_gpio = 17
-```
-
-It's switched with Pi OS's `pinctrl` tool, so no GPIO library is needed. A
-buzzer drawing more than a few milliamps should go through a transistor.

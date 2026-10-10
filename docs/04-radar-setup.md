@@ -27,7 +27,7 @@ things to set:
 
 ```ini
 lat = 48.4220           # your receiver's position, decimal degrees
-lon = -123.3700
+lon = -123.3700         # (this is Victoria's Inner Harbour: use your own)
 range_nm = 10           # starting range: outer ring, nautical miles
 
 [source]
@@ -47,7 +47,12 @@ places, with `PI` your receiver's address:
 | readsb / tar1090 | `http://PI/tar1090/data/aircraft.json` |
 
 Open the URL in a browser: a page of JSON listing aircraft means it's
-right. No receiver? Delete the `local` source and keep `adsb.fi` (chapter 9).
+right.
+
+The address can be IPv4 or IPv6. An IPv6 address goes in square brackets,
+`url = http://[fd00::22]/data/aircraft.json`, or use a hostname: if it has
+both kinds of address, the radar tries IPv6 first and falls back to IPv4.
+The receiver's web server has to be listening on IPv6 for that to work. No receiver? Delete the `local` source and keep `adsb.fi` (chapter 9).
 
 ## Make the map
 

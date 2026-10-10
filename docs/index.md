@@ -11,8 +11,8 @@ Gordon M. Celesta · Victoria, BC · Raspberry Pi meetup, October 2026
 
 ![The radar showing the waters around Victoria, with two aircraft and the sweep](images/radar.png)
 
-This is the write-up for my talk. It's meant to be followed along with on
-the night, and to be enough to build your own afterwards. The code is at
+This is the write-up for my talk. It's meant to be followed along with during
+the Meetup, and to be enough to build your own afterwards. The code is at
 [github.com/va7sdf/lvgl-radar](https://github.com/va7sdf/lvgl-radar).
 
 There are two projects in it:
@@ -37,9 +37,10 @@ There are two projects in it:
 7. [Touch and screens](07-screens.md) Every gesture and screen, and two touch bugs worth knowing
 8. [Fonts and icons](08-fonts.md) TrueType at runtime, a seven-segment clock and weather icons
 9. [Where the data comes from](09-data-sources.md) The receiver and five free web services
-10. [Settings](10-settings.md) radar.conf, units, alerts and the buzzer
-11. [Running it for real](11-running.md) A service, demo mode, and showing it on a projector
+10. [Settings](10-settings.md) radar.conf, units and alerts
+11. [Running it for real](11-running.md) A service, taking it out, and showing it on a projector
 12. [Credits, lessons and ideas](12-credits.md)
+13. [Glossary](13-glossary.md) The aviation and computing terms used here
 
 ## In one minute
 
@@ -51,4 +52,5 @@ There are two projects in it:
 | Touch | Linux evdev, through LVGL's driver |
 | Language | C (the touch demo); C and a little Python (the radar's tools) |
 | Aircraft | My own dump1090-fa receiver, plus the adsb.fi open data feed |
+| Network | IPv4 or IPv6 (chapter 9 has the details) |
 | Licence | BSD 2-Clause; fonts and data keep their own licences |

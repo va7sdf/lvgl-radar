@@ -13,12 +13,14 @@ title: The hardware
 | Mini-HDMI to HDMI cable (or adapter) | The Zero has a mini-HDMI socket |
 | Micro-USB OTG cable | From the Zero's USB data port to the screen's touch port |
 | 5 V 2.5 A power supply | Into the Zero's power port |
+| A second 5 V supply | For the screen, into its power port |
 | microSD card, 16 GB or more | Raspberry Pi OS Lite (64-bit) |
 | An ADS-B receiver (optional) | Mine is dump1090-fa on another Pi. Without one, the radar can use adsb.fi alone |
-| A small buzzer (optional) | On a GPIO pin, for alerts |
 
-The touch connection also powers the screen from the Pi, so the whole thing
-runs from one supply.
+I power the screen from a second Raspberry Pi power supply I had to hand.
+The screen can also take power through its touch USB port. Whether one
+supply can run both the Pi and the screen that way, with touch still
+working, is something to try for yourself.
 
 > **Lesson learned:** when the screen went blank one evening, after a lot of
 > head-scratching the mini-HDMI plug turned out to be half out of the

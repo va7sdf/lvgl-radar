@@ -25,10 +25,11 @@ itself after a while untouched.
 ![Details for a light aircraft heard by my receiver](images/details.png)
 
 A tap within 45 pixels of an aircraft opens its details: callsign,
-altitude, vertical speed, the altitude set on the autopilot, speed,
-track, squawk, category (light, large, heavy, rotorcraft...), its ICAO
-address, distance and bearing from you, and signal strength if your
-receiver heard it. Type, registration, owner and route are looked up from
+altitude, vertical speed, the altitude set on the autopilot, ground speed
+(its speed over the ground, not through the air), track, squawk, category
+(light, large, heavy, rotorcraft...), its ICAO address, distance and
+bearing from you, and signal strength if your receiver heard it. The
+[glossary](13-glossary.md) explains each of these. Type, registration, owner and route are looked up from
 adsbdb.com in the background ("looking up...") and filled in when they
 arrive.
 
@@ -38,10 +39,11 @@ or when you tap it.
 
 ## Follow an aircraft
 
-![Following an aircraft: a ring around it and its distance, opening at 454 knots](images/follow.png)
+![Following an aircraft: a ring around it, with its distance and how fast it's opening](images/follow.png)
 
 A long-press puts a white ring round an aircraft and a line under it with
-its distance from you and whether it's closing or opening, and how fast.
+its distance from you and whether it's *closing* (getting nearer) or
+*opening* (moving away), and how fast.
 It's good for watching an arrival come in.
 
 ## Airports and navaids
@@ -49,10 +51,14 @@ It's good for watching an arrival come in.
 ![Victoria International: runways, frequencies, distance, and an arriving flight](images/airport.png)
 
 Map points need a closer tap (30 pixels) than aircraft. An airport shows
-its name, elevation, runways and radio frequencies from OurAirports, its
-distance and bearing from you, the latest METAR (the aviation weather
-report), and a **live board**: aircraft on the radar whose route, from
+its name, elevation, runways and radio frequencies from ourairports.com,
+its distance and bearing from you, the latest METAR, and a **live board**: aircraft on the radar whose route, from
 adsbdb, starts or ends there, with how far out they are.
+
+A navaid shows its identifier, name and type (VOR, VOR-DME,
+VORTAC, TACAN, NDB or NDB-DME), its frequency, the DME channel if it has one, its elevation, the
+local magnetic variation, and the airport it serves, with its distance and
+bearing from you. If your map has towns or peaks, they can be tapped too.
 
 > I wanted real schedules and NOTAMs here, but the sources for those are
 > paid or need agreements. The live board is built from what's already on
@@ -60,18 +66,26 @@ adsbdb, starts or ends there, with how far out they are.
 
 ## Clock and weather
 
-![The clock in UTC with local time below, current weather with an icon, the forecast and the METAR](images/weather.png)
+![The clock in Zulu (UTC) with local time below, current weather with an icon, the forecast and the METAR](images/weather.png)
 
 When the radar has been empty for three minutes it shows the clock and
 weather instead, and switches back as soon as an aircraft appears. A
 swipe left shows it any time.
 
-The big clock shows UTC (Zulu), as pilots and air traffic control use, with
-local time and the zone underneath; either can be the big one. Below are
-the current conditions with an icon, wind, humidity and pressure, today's
-high and low, two more days of forecast, and the METAR for your nearest
-airport, coloured by flight category (green VFR, blue MVFR, red IFR,
-magenta LIFR).
+The big clock shows Zulu (UTC), with local time and the zone underneath;
+either can be the big one. Below are the current conditions with an icon,
+wind, humidity and pressure, today's high and low, two more days of
+forecast, and the METAR for your nearest airport, coloured by its flight
+category: green for VFR, blue for MVFR, red for IFR and magenta for LIFR
+(roughly: good, marginal, poor and very poor conditions for flying by
+sight; the glossary has the details).
+
+**Why Zulu?** Aviation runs on one clock for the whole world, so a flight
+plan, a METAR or a controller's instruction means the same time to
+everyone, with no time zones or daylight saving to convert. That clock is
+Coordinated Universal Time (UTC), the time at the zero meridian through
+Greenwich. Time zones have letters, and the zero meridian's is Z, which is
+"Zulu" in the phonetic alphabet. A METAR issued at 16:00 UTC says `1600Z`.
 
 ## Your receiver
 
@@ -84,12 +98,17 @@ your receiver has heard aircraft in each 10° direction: today and the
 best ever. Hills and buildings show up as dents, so it's a good way to
 judge an antenna move.
 
+The plot is saved to `range.txt` every five minutes, so the best ever
+survives restarts and reboots (a power cut can lose the last few
+minutes). Today's starts afresh at local midnight. The message and signal
+figures are live from dump1090 and aren't stored.
+
 ## Aircraft list
 
 ![The aircraft list: callsign, type, altitude, speed and distance, nearest first](images/list.png)
 
 Swipe down for every aircraft within the current range, nearest first, in
-its source's colour. Tap a row for its details.
+its source's colour. Speeds are ground speeds. Tap a row for its details.
 
 ## Settings
 
@@ -105,16 +124,17 @@ sweep frame takes, then three buttons:
 - **Credits**: everyone whose data and code made this possible
 
 At the bottom, the Pi's vital signs: temperature, CPU (all of it, and the
-radar's share), memory, disk, power warnings, uptime, IP address, and
-Wi-Fi network and signal strength.
+radar's share), memory, disk, power warnings, uptime, IP address (IPv4,
+or IPv6 on a network without IPv4), and Wi-Fi network and signal
+strength.
 
 ## Alerts
 
 ![An alert: a red banner for a 7700 emergency squawk](images/alert.png)
 
 When an emergency squawk, a military aircraft or one on your watch list
-comes within range, its details open by themselves with a red banner, and
-a buzzer beeps if you've fitted one (chapter 10).
+comes within range, its details open by themselves with a red banner
+(chapter 10 has the settings).
 
 ## How screens are built
 

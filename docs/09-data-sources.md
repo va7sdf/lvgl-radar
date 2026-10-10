@@ -91,4 +91,27 @@ IFR, LIFR), which colours it on screen.
 > **A good habit:** every one of these is a free service run by people who
 > asked only for a credit and light use. The radar polls no faster than it
 > needs, caches lookups, backs off when a source fails, and lists them all
-> on the Credits screen.
+> on the Credits screen. Aggregators like adsb.fi exist because people
+> feed them, so I'm planning to give back by feeding my own receiver's data
+> to adsb.fi and airplanes.live.
+
+## IPv4 and IPv6
+
+The radar fetches with libcurl and the Python tools with Python's own
+library. Both handle IPv6 and IPv4 alike: given a name with both kinds of
+address, they try IPv6 first and fall back to IPv4. On a home network
+with both (*dual-stack*), everything works whichever the services offer.
+On a network with IPv6 only, the IPv4-only services below are reachable
+only if the network provides NAT64/DNS64, a translation service that most
+IPv6-only networks, mobile carriers included, do offer.
+
+| Has IPv6 | IPv4 only |
+|---|---|
+| adsbdb.com (lookups) | adsb.fi (aircraft) |
+| aviationweather.gov (METARs) | Open-Meteo (weather) |
+| raw.githubusercontent.com (GSHHG shoreline data) | GeoNames (towns and peaks) |
+| OurAirports data (on GitHub Pages) | github.com (cloning the repo) |
+
+This was checked in October 2026; services add IPv6 over time. On your own
+network the receiver, SSH and the screen mirror (chapter 11) all work over
+IPv6 too.

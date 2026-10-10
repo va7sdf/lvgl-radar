@@ -6,7 +6,9 @@ title: Why skip the desktop?
 
 A Raspberry Pi with a desktop runs a display server (X11 or Wayland), a
 window manager, a panel, and then your program in a window. That's the
-right choice for a general-purpose computer. For a gadget with one job,
+right choice for a general-purpose computer. A lightweight window manager
+such as Openbox trims away the panel and the extras, but the display
+server is still there underneath. For a gadget with one job,
 like a clock, a dashboard or a radar, it's a lot of machinery between your
 program and the glass:
 
@@ -21,6 +23,7 @@ any of it.
 
 ## The framebuffer: the screen as a file
 
+Everything in Unix-like systems is a file, and the screen is no exception:
 `/dev/fb0` is the screen's memory, presented as a file. Write bytes to it
 and pixels change. On this screen each pixel is two bytes in a format
 called RGB565 (5 bits red, 6 green, 5 blue), so 1080 × 1080 pixels is
@@ -45,7 +48,7 @@ though. That's what LVGL is for.
 
 ## evdev: touches as a stream of events
 
-Every input device (keyboard, mouse, touch screen) appears under
+Input devices are files too. Every one (keyboard, mouse, touch screen) appears under
 `/dev/input/` as an *event device*. Reading it gives a stream of small
 records: "X is now 2048", "Y is now 1310", "finger down", "sync". The
 `evtest` tool prints them, which is the best way to check a touch screen

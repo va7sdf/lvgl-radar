@@ -26,6 +26,7 @@ chapters:
   - 10-settings.md
   - 11-running.md
   - 12-credits.md
+  - 13-glossary.md
 exclude:
   - build.py
   - "*.pdf"

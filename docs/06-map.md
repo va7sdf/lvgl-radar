@@ -21,6 +21,10 @@ uses only the standard library.
 | VORs and NDBs (navaids) | OurAirports | Public domain |
 | Towns and peaks (optional) | [GeoNames](https://www.geonames.org/) | CC BY 4.0 |
 
+*Navaids* (navigation aids) are the radio beacons pilots steer by: VORs,
+which tell an aircraft its bearing from the station, and older, simpler
+NDBs. They sit at airports and along airways, so they make good landmarks.
+
 > **Lesson learned:** I tried Natural Earth's coastlines first. They're
 > lovely for a world map, but at 10 nm the islands around Victoria were
 > blobs. GSHHG's full-resolution shorelines show every cove and islet.

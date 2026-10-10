@@ -31,6 +31,10 @@ text console back.
 specific version (9.3.0) of LVGL's own repository. If you cloned without
 it, run `git submodule update --init`.
 
+> **IPv6 only?** github.com has no IPv6 address yet, so cloning from a
+> network with IPv6 and no IPv4 needs NAT64/DNS64 (chapter 9). Most
+> IPv6-only networks, including mobile carriers, provide it.
+
 The demo finds the touch screen itself. To choose a device, name it:
 
 ```
