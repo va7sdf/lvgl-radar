@@ -46,6 +46,22 @@ video=HDMI-A-1:1080x1080@60
 > `hdmi_mode` and `hdmi_timings` in `config.txt`. With today's KMS
 > graphics driver the `video=` setting in `cmdline.txt` is what counts.
 
+### Keep boot messages off the screen
+
+By default the kernel prints its boot messages on the screen, and they can
+end up showing around the edges of the app. In the same line of
+`cmdline.txt`, change `console=tty1` to `console=tty3`, so the messages go
+to a console nobody looks at, and add:
+
+```
+quiet loglevel=3 logo.nologo vt.global_cursor_default=0
+```
+
+These print only serious kernel messages, drop the Raspberry Pi logos at
+boot, and hide the console's blinking cursor. Leave
+`console=serial0,115200` alone if it's there, and keep everything on one
+line. You can still see the boot messages with `dmesg` or `journalctl -b`.
+
 Reboot, and check the framebuffer agrees:
 
 ```

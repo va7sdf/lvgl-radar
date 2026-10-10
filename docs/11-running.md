@@ -24,7 +24,9 @@ cd lvgl-radar/radar
 ```
 
 That writes `/etc/systemd/system/radar.service` for your user and folder,
-enables it to start at boot, and starts it now. The interesting lines:
+enables it to start at boot, and starts it now. It also *masks* the login
+prompt on the screen (`getty@tty1`), so it can't draw over the radar;
+`./install-service.sh remove` puts it back. The interesting lines:
 
 ```ini
 [Unit]
@@ -40,6 +42,12 @@ Restart=always                      # if it ever stops, start it again
 SupplementaryGroups=video input tty
 AmbientCapabilities=CAP_SYS_TTY_CONFIG
 ```
+
+> **Lesson learned:** after the first reboot with the service, boot text
+> showed around the edges of the radar. Moving the boot messages to
+> another console (chapter 2) fixed it. The installer also masks the
+> login prompt, since `Conflicts=` alone can't stop it starting at the
+> same time as the radar.
 
 The groups give access to the framebuffer, the touch screen and the
 console. The capability allows exactly one privileged thing:

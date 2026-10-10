@@ -16,6 +16,7 @@ if [ "$1" = remove ]; then
     sudo systemctl disable --now radar.service 2>/dev/null || true
     sudo rm -f "$UNIT"
     sudo systemctl daemon-reload
+    sudo systemctl unmask getty@tty1.service    # the login prompt can come back
     echo "radar service removed"
     exit 0
 fi
@@ -45,5 +46,8 @@ AmbientCapabilities=CAP_SYS_TTY_CONFIG
 WantedBy=multi-user.target
 UNIT
 sudo systemctl daemon-reload
+# No login prompt on the radar's screen. Conflicts= alone isn't enough: at
+# boot both start together and the prompt can end up drawing over the radar.
+sudo systemctl mask getty@tty1.service
 sudo systemctl enable --now radar.service
 echo "radar service installed for $USER_NAME, running from $DIR"
