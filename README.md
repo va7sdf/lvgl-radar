@@ -4,8 +4,8 @@ Graphical, touch-driven apps on a Raspberry Pi with no X or Wayland:
 [LVGL](https://lvgl.io) draws straight to the Linux framebuffer and reads
 touches from evdev, so a Pi Zero 2 boots to the app in seconds.
 
-**Read the write-up:** [va7sdf.github.io/lvgl-radar](https://va7sdf.github.io/lvgl-radar/)
-(the same pages are in [docs/](docs/)).
+**Read the write-up:** [online, chapter by chapter](docs/index.md), or
+[as a PDF](docs/lvgl-radar-docs.pdf) (A4, 50 pages).
 
 | Folder | What's in it |
 |---|---|
